@@ -1,5 +1,5 @@
-# 🏃‍♂️ Swift Stopwatch
-> A beautifully crafted iOS stopwatch app with lap tracking, built with SwiftUI
+# ⏱️ Swift Stopwatch
+> A bold, energetic iOS stopwatch app with lap tracking, built with SwiftUI
 
 <div align="center">
   
@@ -14,7 +14,9 @@
 
 - **⏱️ Precise Timing** - Millisecond accuracy with smooth real-time updates
 - **🏁 Lap Recording** - Track multiple laps with automatic best/worst identification
-- **🎨 Modern Design** - Beautiful gradients, animations, and dark theme
+- **🎨 Dynamic Design** - Random vibrant background colors on each launch
+- **🔤 Custom Typography** - Bold Bungee font throughout the entire app
+- **💪 Motivational Start** - Inspiring quotes on splash screen to get you going
 - **📱 Native iOS Feel** - Smooth gestures, haptic feedback, and fluid animations
 - **🎯 Performance Optimized** - Efficient timer implementation with minimal CPU usage
 
@@ -25,16 +27,35 @@
 TimerApp/
 ├── TimerApp.swift          # App entry point
 ├── ContentView.swift       # Main UI and animations
+├── SplashView.swift        # Motivational splash screen
 ├── TimerManager.swift      # Business logic and state management
-├── BottomSheet.swift       # Reusable bottom sheet component
+├── Bungee-Regular.ttf      # Custom font file
 ├── Info.plist             # App configuration
-└── Assets.xcassets/       # App icons and colors
+└── Assets.xcassets/       # App icons and assets
 ```
 
 ### Key Components
 
-#### 1. **TimerManager** - The Brain 🧠
-The `TimerManager` class is an `ObservableObject` that handles all timing logic:
+#### 1. **SplashView** - The Motivator 💪
+A dynamic splash screen that sets the tone for your workout or timing session:
+
+```swift
+struct SplashView: View {
+    @State private var backgroundColor = ColorManager.randomColor()
+    @State private var selectedQuote = QuoteManager.randomQuote()
+    // ...
+}
+```
+
+**Features:**
+- 20 motivational quotes randomly selected
+- Random vibrant background colors
+- Large Bungee font typography (48pt)
+- Smooth fade-in animation
+- Auto-transitions to main app after 2.5 seconds
+
+#### 2. **TimerManager** - The Brain 🧠
+The `TimerManager` class handles all timing logic:
 
 ```swift
 class TimerManager: ObservableObject {
@@ -51,14 +72,15 @@ class TimerManager: ObservableObject {
 - Tracks both total time and individual lap times
 - Automatically identifies fastest and slowest laps
 
-#### 2. **ContentView** - The Beauty 💅
-The main view showcases modern SwiftUI design patterns:
+#### 3. **ContentView** - The Experience 🎨
+The main view showcases bold design choices:
 
 **Visual Elements:**
+- **Random Background Colors**: 20 vibrant colors that change each session
 - **Circular Progress Ring**: Shows seconds progress with smooth animation
-- **Gradient Buttons**: Three distinct gradient styles for visual hierarchy
-- **Dark Theme**: Easy on the eyes with `#0f0c29` background
-- **Typography**: Mix of thin, light, and medium weights for visual balance
+- **Black Action Buttons**: High contrast buttons for better visibility
+- **Custom Typography**: Bungee font for all text elements
+- **Minimalist Design**: Clean white-on-color aesthetic
 
 **Animations:**
 ```swift
@@ -71,135 +93,125 @@ withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
 .rotationEffect(.degrees(lapButtonRotation))
 ```
 
-#### 3. **BottomSheet** - The Experience 📱
-A custom bottom sheet implementation with:
-- **Drag to dismiss** gesture
-- **Background blur** using `UIVisualEffectView`
-- **Elastic animations** for natural feel
-- **Tap outside to close** functionality
-
-```swift
-struct BottomSheet<Content: View>: View {
-    @Binding var isPresented: Bool
-    @State private var dragOffset: CGFloat = 0
-    // ...
-}
-```
-
 ## 🎨 Design System
 
 ### Color Palette
 ```swift
-// Primary Gradient - Purple Dream
-LinearGradient(
-    colors: [Color(hex: "667eea"), Color(hex: "764ba2")],
-    startPoint: .topLeading,
-    endPoint: .bottomTrailing
-)
-
-// Secondary Gradient - Sunset Blush
-LinearGradient(
-    colors: [Color(hex: "f093fb"), Color(hex: "f5576c")],
-    startPoint: .topLeading,
-    endPoint: .bottomTrailing
-)
-
-// Accent Gradient - Ocean Breeze
-LinearGradient(
-    colors: [Color(hex: "4facfe"), Color(hex: "00f2fe")],
-    startPoint: .topLeading,
-    endPoint: .bottomTrailing
-)
+struct ColorManager {
+    static let colors = [
+        Color(hex: "FF6B6B"), // Red
+        Color(hex: "4ECDC4"), // Teal
+        Color(hex: "45B7D1"), // Blue
+        Color(hex: "FFA502"), // Orange
+        Color(hex: "FF6348"), // Coral
+        Color(hex: "7D5FFF"), // Purple
+        Color(hex: "00D2D3"), // Cyan
+        // ... 13 more vibrant colors
+    ]
+}
 ```
 
-### Typography Scale
-- **Header**: System 18pt, Light, 5pt tracking
-- **Timer**: System 56pt, Thin, Monospaced
-- **Lap Time**: System 24pt, Light, Monospaced
-- **Buttons**: System 16pt, Medium
+### Typography
+- **Font Family**: Bungee-Regular (custom font)
+- **Header**: Bungee 18pt
+- **Timer**: Bungee 42pt (reduced from 56pt for better fit)
+- **Lap Time**: Bungee 18pt
+- **Buttons**: Bungee 14pt
+- **Splash Quotes**: Bungee 48pt
+
+### Motivational Quotes
+```swift
+"TIME IS YOUR MOST VALUABLE ASSET"
+"MAKE EVERY SECOND COUNT"
+"DISCIPLINE BEATS MOTIVATION"
+"START NOW, GET PERFECT LATER"
+// ... 16 more quotes
+```
 
 ## 🚀 Technical Highlights
 
-### 1. **Reactive State Management**
-Using Combine framework through `@Published` properties ensures UI updates automatically when state changes:
-
+### 1. **Dynamic Color System**
+Each app launch presents a fresh, energetic color:
 ```swift
-@Published var timeElapsed: TimeInterval = 0
-// UI automatically updates when timeElapsed changes
+@State private var backgroundColor = ColorManager.randomColor()
 ```
 
-### 2. **Performance Optimization**
-- Timer updates every 10ms (100Hz) for smooth display
-- Efficient lap array management with `insert(at: 0)`
-- Minimal view re-renders using targeted `@State` properties
-
-### 3. **Native iOS Integration**
-- **SF Symbols** for consistent iconography
-- **UIKit Integration** for blur effects
-- **SwiftUI Animations** for fluid interactions
-
-### 4. **Custom Extensions**
+### 2. **Custom Font Integration**
+Bungee font loaded and applied throughout:
 ```swift
-extension Color {
-    init(hex: String) {
-        // Converts hex strings to SwiftUI Colors
+extension Font {
+    static func bungee(size: CGFloat) -> Font {
+        return Font.custom("Bungee-Regular", size: size)
     }
 }
 ```
 
+### 3. **Improved Timer Display**
+- Smaller font size (42pt) for better readability
+- Added padding inside progress circle
+- High contrast white-on-color design
+
+### 4. **Black App Icon**
+- Minimalist black background
+- White circular progress indicator
+- Matches the app's bold aesthetic
+
 ## 📲 User Experience Flow
 
-1. **Start** → Play button begins timing with spring animation
-2. **Lap** → Flag button records current lap (with 360° rotation)
-3. **View Laps** → Bottom sheet slides up with blur background
-4. **Stop** → Pause button halts timing
-5. **Reset** → Clockwise arrow clears all data
+1. **Launch** → Motivational quote with random background color
+2. **Main Screen** → Timer with vibrant random background
+3. **Start** → Black play button begins timing
+4. **Lap** → Black flag button records current lap
+5. **View Laps** → Sheet slides up showing lap times
+6. **Reset** → Clear all data and start fresh
 
-## 🎯 Design Decisions
+## 🎯 Design Philosophy
 
-### Why These Colors?
-- **Purple/Pink**: Energy and movement, perfect for active timing
-- **Blue**: Trust and precision, ideal for lap recording
-- **Dark Background**: Reduces eye strain during extended use
+### Why Random Colors?
+- **Fresh Experience**: Each session feels new and energetic
+- **Motivation**: Bright colors enhance mood and energy
+- **Variety**: Prevents visual monotony during repeated use
 
-### Why Bottom Sheet?
-- **Familiar iOS Pattern**: Users expect this interaction
-- **Space Efficiency**: Keeps main timer always visible
-- **Natural Gesture**: Swipe down to dismiss feels intuitive
+### Why Bungee Font?
+- **Bold & Energetic**: Matches the dynamic nature of timing activities
+- **High Readability**: Clear even at small sizes
+- **Personality**: Gives the app a unique, memorable character
 
-### Why These Animations?
-- **Spring Physics**: Feels natural and responsive
-- **Rotation on Lap**: Provides visual feedback for action
-- **Scale on Press**: Standard iOS button behavior
+### Why Black Buttons?
+- **High Contrast**: Visible on any background color
+- **Consistency**: Works with all 20 random backgrounds
+- **Professional**: Clean, modern appearance
 
 ## 🔧 Building the App
 
 1. Open `TimerApp.xcodeproj` in Xcode
-2. Select your target device/simulator
-3. Press `⌘R` to build and run
+2. Ensure `Bungee-Regular.ttf` is included in project
+3. Select your target device/simulator
+4. Press `⌘R` to build and run
 
 ### Requirements
 - Xcode 15.0+
 - iOS 17.0+
 - Swift 5.9+
 
-## 💡 Future Enhancements
+## 💡 Recent Updates
 
-- [ ] Haptic feedback on button presses
-- [ ] Sound effects for lap recording
-- [ ] Export lap times to CSV
-- [ ] Apple Watch companion app
-- [ ] Widget for quick access
-- [ ] Multiple timer support
+- ✅ Reduced timer font size with improved padding
+- ✅ Implemented random solid background colors (20 options)
+- ✅ Integrated Bungee font throughout the app
+- ✅ Added motivational splash screen with quotes
+- ✅ Changed button backgrounds to black for contrast
+- ✅ Updated app icon to black background
+- ✅ Removed dark mode toggle (always uses white text)
 
 ## 🙏 Acknowledgments
 
-This app showcases the power of SwiftUI in creating beautiful, performant iOS applications with minimal code. The design philosophy follows Apple's Human Interface Guidelines while adding unique personality through colors and animations.
+This app showcases modern SwiftUI capabilities with bold design choices, custom typography, and dynamic color schemes. The Bungee font adds personality while maintaining functionality, creating an energetic timing experience.
 
 ---
 
 <div align="center">
   
-**Built with ❤️ using SwiftUI**
+**Built with ⚡ using SwiftUI & Bungee Font**
 
 </div>
