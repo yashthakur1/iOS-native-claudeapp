@@ -1,0 +1,38 @@
+{
+  "name": "iOS Timer App",
+  "description": "Bold iOS stopwatch app with lap tracking, Bungee font, random vibrant backgrounds, and motivational quotes",
+  "type": "ios-app",
+  "git": {
+    "workflow": "gitflow",
+    "mainBranch": "main",
+    "developBranch": "develop",
+    "featurePrefix": "feature/",
+    "releasePrefix": "release/",
+    "hotfixPrefix": "hotfix/",
+    "bugfixPrefix": "bugfix/"
+  },
+  "conventions": {
+    "commits": "conventional",
+    "code": {
+      "language": "swift",
+      "style": "swiftformat",
+      "font": "Bungee-Regular"
+    }
+  },
+  "collaboration": {
+    "workflow": "collaborative",
+    "planning": "required",
+    "review": "required",
+    "testing": "required"
+  },
+  "tools": {
+    "scripts": {
+      "collaborate": "./collaborate.sh",
+      "updateRepo": "./github-repo-update.sh"
+    },
+    "build": "xcodebuild",
+    "test": "xctest"
+  },
+  "currentVersion": "1.0.0",
+  "nextMilestone": "TBD"
+}
