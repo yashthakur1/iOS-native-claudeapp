@@ -1,0 +1,34 @@
+{
+  "mcpServers": {
+    "git": {
+      "command": "mcp-server-git",
+      "args": [],
+      "env": {
+        "REPO_PATH": "/Users/yashthakur/Documents/GitHub/iOS-native-claudeapp"
+      }
+    },
+    "github": {
+      "command": "mcp-server-github",
+      "env": {
+        "GITHUB_REPO": "yashthakur1/iOS-native-claudeapp"
+      }
+    },
+    "filesystem": {
+      "command": "mcp-server-filesystem",
+      "args": ["/Users/yashthakur/Documents/GitHub/iOS-native-claudeapp"]
+    },
+    "memory": {
+      "command": "mcp-server-memory",
+      "env": {
+        "PROJECT": "iOS Timer App"
+      }
+    }
+  },
+  "globalShortcuts": {
+    "collaborate": "./collaborate.sh",
+    "update-repo": "./github-repo-update.sh update",
+    "check-branch": "git branch --show-current",
+    "sync": "git pull origin $(git branch --show-current)",
+    "status": "git status --short"
+  }
+}
