@@ -1,0 +1,26 @@
+{
+  "description": "⏱️ Bold iOS stopwatch app with lap tracking, Bungee font, random vibrant backgrounds, and motivational quotes. Built with SwiftUI.",
+  "homepage": "",
+  "topics": [
+    "ios",
+    "swift",
+    "swiftui",
+    "stopwatch",
+    "timer",
+    "ios-app",
+    "lap-timer",
+    "bungee-font",
+    "motivational-quotes",
+    "xcode",
+    "swift5",
+    "ios17",
+    "custom-fonts",
+    "animation",
+    "haptic-feedback"
+  ],
+  "has_issues": true,
+  "has_projects": false,
+  "has_wiki": false,
+  "has_downloads": true,
+  "private": false
+}
